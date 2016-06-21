@@ -208,14 +208,14 @@
   if (_theme != theme) {
     _theme = theme;
 
-//    if (_theme == MDCalendarThemeDark) {
-//      _headerBackgroundColor = [UIColorHelper colorWithRGBA:@"#374248"];
-//      _headerColor = [UIColorHelper colorWithRGBA:@"#80CBC4"];
-//    } else if (_theme == MDCalendarThemeLight) {
-//      _headerBackgroundColor = [UIColorHelper colorWithRGBA:@"#009688"];
-//      _headerColor = [UIColorHelper colorWithRGBA:@"#00796B"];
-//    }
-
+    if (_theme == MDCalendarThemeDark) {
+      _headerBackgroundColor = [UIColorHelper colorWithRGBA:@"#374248"];
+      _headerColor = [UIColorHelper colorWithRGBA:@"#80CBC4"];
+    } else if (_theme == MDCalendarThemeLight) {
+      _headerBackgroundColor = [UIColorHelper colorWithRGBA:@"#009688"];
+      _headerColor = [UIColorHelper colorWithRGBA:@"#00796B"];
+    }
+      
       _headerColor = [UIColorHelper colorWithRGBA:@"#23ae1b"]; //	Teal
       _headerBackgroundColor = [UIColorHelper colorWithRGBA:@"#2ccb23"];
 
@@ -232,17 +232,18 @@
   _labelDayName.text = [_dateFormatter stringFromDate:date];
 
   _dateFormatter.dateFormat = @"MM";
-  NSString *monthName = [[_dateFormatter standaloneMonthSymbols]
-      objectAtIndex:([[_dateFormatter stringFromDate:date] intValue] - 1)];
+  NSString *monthName = @"";
   if (_monthFormat == MDCalendarMonthSymbolsFormatShort ||
       _monthFormat == MDCalendarMonthSymbolsFormatShortUppercase) {
-    monthName = [monthName substringToIndex:3];
+    monthName = [[_dateFormatter shortMonthSymbols]
+        objectAtIndex:([[_dateFormatter stringFromDate:date] intValue] - 1)];
     if (_monthFormat == MDCalendarMonthSymbolsFormatShortUppercase) {
       monthName = [monthName uppercaseString];
     }
   } else {
     if (_monthFormat == MDCalendarMonthSymbolsFormatFull) {
-      monthName = [monthName uppercaseString];
+      monthName = [[_dateFormatter monthSymbols]
+          objectAtIndex:([[_dateFormatter stringFromDate:date] intValue] - 1)];
     }
   }
   _labelMonthName.text = monthName;
